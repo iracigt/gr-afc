@@ -1,8 +1,8 @@
 <?xml version="1.0"?>
 <block>
-  <name>fsk_afc_ff</name>
+  <name>FSK AFC</name>
   <key>afc_fsk_afc_ff</key>
-  <category>[afc]</category>
+  <category>[AFC]</category>
   <import>import afc</import>
   <make>afc.fsk_afc_ff($ntaps)</make>
   <!-- Make one 'param' node for every Parameter you want settable from the GUI.
@@ -11,9 +11,9 @@
        * key (makes the value accessible as $keyname, e.g. in the make node)
        * type -->
   <param>
-    <name>...</name>
-    <key>...</key>
-    <type>...</type>
+    <name>ntaps</name>
+    <key>ntaps</key>
+    <type>int</type>
   </param>
 
   <!-- Make one 'sink' node per input. Sub-nodes:
@@ -23,7 +23,7 @@
        * optional (set to 1 for optional inputs) -->
   <sink>
     <name>in</name>
-    <type><!-- e.g. int, float, complex, byte, short, xxx_vector, ...--></type>
+    <type>float</type>
   </sink>
 
   <!-- Make one 'source' node per output. Sub-nodes:
@@ -33,6 +33,6 @@
        * optional (set to 1 for optional inputs) -->
   <source>
     <name>out</name>
-    <type><!-- e.g. int, float, complex, byte, short, xxx_vector, ...--></type>
+    <type>float</type>
   </source>
 </block>

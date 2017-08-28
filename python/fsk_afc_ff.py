@@ -27,6 +27,11 @@ class fsk_afc_ff(gr.sync_block):
     docstring for block fsk_afc_ff
     """
     def __init__(self, ntaps):
+        self.max_buf = numpy.zeros((ntaps,), dtype=numpy.float32)
+        self.min_buf = numpy.zeros((ntaps,), dtype=numpy.float32)
+        self.samp_buf = numpy.zeros((3,), dtype=numpy.float32)
+        self.min = 0
+        self.max = 0
         gr.sync_block.__init__(self,
             name="fsk_afc_ff",
             in_sig=[numpy.float32],
@@ -36,5 +41,21 @@ class fsk_afc_ff(gr.sync_block):
         in0 = input_items[0]
         out = output_items[0]
         # <+signal processing here+>
+        for i in range(0, len(in0)):
+            self.samp_buf[1:] = self.samp_buf[:-1]
+            self.samp_buf[0] = in0[i]
+
+            if self.samp_buf[0] <= self.samp_buf[1] and self.samp_buf[1] > self.samp_buf[2]:
+                self.max_buf[1:] = self.max_buf[:-1]
+                self.max_buf[0] = self.samp_buf[1]
+                self.max = sum(self.max_buf) / float(len(self.max_buf))
+
+            if self.samp_buf[0] >= self.samp_buf[1] and self.samp_buf[1] < self.samp_buf[2]:
+                self.min_buf[1:] = self.min_buf[:-1]
+                self.min_buf[0] = self.samp_buf[1]
+                self.min = sum(self.min_buf) / float(len(self.min_buf))
+
+            in0[i] = in0[i] - (self.max + self.min)/2
+
         out[:] = in0
         return len(output_items[0])
