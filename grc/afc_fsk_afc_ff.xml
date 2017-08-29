@@ -14,6 +14,7 @@
     <name>ntaps</name>
     <key>ntaps</key>
     <type>int</type>
+    <value>2</value>
   </param>
 
   <!-- Make one 'sink' node per input. Sub-nodes:
@@ -35,4 +36,12 @@
     <name>out</name>
     <type>float</type>
   </source>
+
+  <check>$ntaps &gt; 0</check>
+
+  <doc>
+    This block automatically centers a demodulated FSK signal. \
+    ntaps: The number of taps in the boxcar filter that filters minimums and maximums
+  </doc>
+
 </block>
