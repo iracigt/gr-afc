@@ -13,8 +13,8 @@
   <param>
     <name>ntaps</name>
     <key>ntaps</key>
-    <type>int</type>
     <value>2</value>
+    <type>int</type>
   </param>
 
   <!-- Make one 'sink' node per input. Sub-nodes:
@@ -37,7 +37,7 @@
     <type>float</type>
   </source>
 
-  <check>$ntaps &gt; 0</check>
+  <!-- <check>$ntaps &gt; 0</check> -->
 
   <doc>
     This block automatically centers a demodulated FSK signal. \

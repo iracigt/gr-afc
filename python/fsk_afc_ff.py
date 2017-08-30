@@ -45,17 +45,17 @@ class fsk_afc_ff(gr.sync_block):
             self.samp_buf[1:] = self.samp_buf[:-1]
             self.samp_buf[0] = in0[i]
 
-            if self.samp_buf[0] <= self.samp_buf[1] and self.samp_buf[1] > self.samp_buf[2] and samp_buf[1] > 0:
+            if self.samp_buf[0] <= self.samp_buf[1] and self.samp_buf[1] > self.samp_buf[2] and self.samp_buf[1] > 0:
                 self.max_buf[1:] = self.max_buf[:-1]
                 self.max_buf[0] = self.samp_buf[1]
                 self.max = sum(self.max_buf) / float(len(self.max_buf))
 
-            if self.samp_buf[0] >= self.samp_buf[1] and self.samp_buf[1] < self.samp_buf[2] and samp_buf[1] < 0:
+            if self.samp_buf[0] >= self.samp_buf[1] and self.samp_buf[1] < self.samp_buf[2] and self.samp_buf[1] < 0:
                 self.min_buf[1:] = self.min_buf[:-1]
                 self.min_buf[0] = self.samp_buf[1]
                 self.min = sum(self.min_buf) / float(len(self.min_buf))
 
-            in0[i] = in0[i] - (self.max + self.min)/2
+            in0[i] = in0[i] - (self.max + self.min)/2.0
 
         out[:] = in0
         return len(output_items[0])
